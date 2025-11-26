@@ -1,39 +1,10 @@
-// Data Dummy Devices
-let devices = [
-  {
-    id: 101,
-    name: "Lampu Teras",
-    type: "Light",
-    room: "Front Yard",
-    status: "Off",
-    power: 15,
-  },
-  {
-    id: 102,
-    name: "AC Kamar Utama",
-    type: "AC",
-    room: "Bedroom",
-    status: "On",
-    power: 550,
-  },
-  {
-    id: 103,
-    name: "Smart TV",
-    type: "Electronics",
-    room: "Living Room",
-    status: "Off",
-    power: 100,
-  },
-  {
-    id: 104,
-    name: "Kunci Pintu Depan",
-    type: "Security",
-    room: "Front Door",
-    status: "Locked",
-    power: 5,
-  },
+// Data Dummy Users
+let users = [
+  { id: 1, name: "Rangga", role: "Admin" },
+  { id: 2, name: "Ayah", role: "Parent" },
+  { id: 3, name: "Ibu", role: "Parent" },
+  { id: 4, name: "Adik", role: "Child" },
 ];
 
-let nextDeviceId = 105;
-
-export { devices, nextDeviceId };
+export const getUsersData = () => users;
+export const findUserById = (id) => users.find((u) => u.id === parseInt(id));
