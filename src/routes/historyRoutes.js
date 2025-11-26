@@ -1,21 +1,9 @@
 import express from "express";
-import {
-  getAllDevices,
-  getDeviceById,
-  createDevice,
-  updateDevice,
-  deleteDevice,
-} from "../controllers/deviceController.js";
-import { validateDeviceInput } from "../middleware/validation.js";
+import { getAllHistory } from "../controllers/historyController.js";
 
 const router = express.Router();
 
-router.get("/", getAllDevices);
-router.get("/:id", getDeviceById);
-
-router.post("/", validateDeviceInput, createDevice);
-
-router.put("/:id", updateDevice);
-router.delete("/:id", deleteDevice);
+// Endpoint untuk melihat log
+router.get("/", getAllHistory);
 
 export default router;

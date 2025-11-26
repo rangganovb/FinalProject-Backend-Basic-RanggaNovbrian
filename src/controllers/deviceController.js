@@ -1,7 +1,7 @@
 import { devices, nextDeviceId } from "../data/devicesData.js";
 import { history, nextHistoryId } from "../data/historyData.js";
 
-// 1. GET ALL DEVICES (Support Filter ?room=...)
+// 1. GET ALL DEVICES
 export const getAllDevices = (req, res) => {
   const { room } = req.query;
   let result = devices;
