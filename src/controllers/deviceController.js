@@ -1,5 +1,8 @@
-import { devices, nextDeviceId } from "../data/devicesData.js";
-import { history, nextHistoryId } from "../data/historyData.js";
+import { devices } from "../data/devicesData.js";
+import { history } from "../data/historyData.js";
+
+let localDeviceId = 105;
+let localHistoryId = 1;
 
 // 1. GET ALL DEVICES
 export const getAllDevices = (req, res) => {
@@ -28,12 +31,13 @@ export const getDeviceById = (req, res) => {
   res.status(200).json({ data: device });
 };
 
-// 3. CREATE NEW DEVICE
+// 3. CREATE NEW DEVICE (POST)
 export const createDevice = (req, res) => {
   const { name, type, room, power } = req.body;
 
+  // Validasi input lewat middleware sudah aman, langsung eksekusi
   const newDevice = {
-    id: nextDeviceId++,
+    id: localDeviceId++, // Ganti jadi localDeviceId
     name,
     type,
     room,
@@ -47,7 +51,7 @@ export const createDevice = (req, res) => {
     .json({ message: "Perangkat baru berhasil dipasang", data: newDevice });
 };
 
-// 4. UPDATE DEVICE
+// 4. UPDATE DEVICE (PUT)
 export const updateDevice = (req, res) => {
   const { id } = req.params;
   const { status, userId } = req.body;
@@ -56,11 +60,11 @@ export const updateDevice = (req, res) => {
   if (index === -1)
     return res.status(404).json({ message: "Perangkat tidak ditemukan" });
 
-  // Cek apakah ada perubahan status
+  // Cek perubahan status untuk History
   if (status && devices[index].status !== status) {
-    // Catat ke History
+    // Catat ke History pakai localHistoryId
     const log = {
-      id: nextHistoryId++,
+      id: localHistoryId++, // Ganti jadi localHistoryId
       deviceId: parseInt(id),
       userId: userId || 0,
       action: `Mengubah status menjadi ${status}`,
@@ -69,7 +73,7 @@ export const updateDevice = (req, res) => {
     history.push(log);
   }
 
-  // Update Data Device
+  // Update Data
   devices[index] = {
     ...devices[index],
     status: status || devices[index].status,
